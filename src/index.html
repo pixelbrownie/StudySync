@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySync</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     NAV
+═══════════════════════════════════════ -->
+<nav id="main-nav">
+  <div class="nav-logo">Study<span>Sync</span></div>
+  <ul class="nav-tabs">
+    <li><button data-page="home">Home</button></li>
+    <li><button data-page="assignments">Assignments</button></li>
+    <li><button data-page="pomodoro">Pomodoro</button></li>
+    <li><button data-page="gpa">GPA &amp; Attendance</button></li>
+    <li><button data-page="game">Memory Game</button></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     PAGE 0 — HOME
+═══════════════════════════════════════ -->
+<div class="page" id="page-home">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg-blobs">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Your study companion</div>
+      <h1 class="hero-title">
+        <span class="t-rose">Study</span><span class="t-yellow">Sync</span>
+      </h1>
+      <p class="hero-sub">
+        Track assignments, crush your GPA, stay focused with Pomodoro,<br>
+        and take breaks that actually refresh you.
+      </p>
+      <button class="hero-cta" id="hero-start">
+        Get Started →
+      </button>
+    </div>
+  </section>
+
+  <!-- Mood Tracker -->
+  <section class="mood-section">
+    <div class="mood-wrap">
+      <div class="section-label">Daily Check-in</div>
+      <h2 class="section-title">How are you feeling today?</h2>
+      <p class="mood-question">Pick the mood that best describes you right now.</p>
+      <div class="mood-emojis" id="mood-emojis"></div>
+      <div class="mood-note-area">
+        <textarea id="mood-note" placeholder="Add a note (optional)… what's on your mind?"></textarea>
+        <br>
+        <button class="mood-save-btn" id="mood-save">Save mood →</button>
+      </div>
+      <div class="mood-log" id="mood-log"></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 1 — ASSIGNMENTS
+═══════════════════════════════════════ -->
+<div class="page" id="page-assignments">
+  <div class="assignments-layout">
+
+    <!-- Sidebar / To-Do -->
+    <aside class="assign-sidebar">
+      <div class="assign-sidebar-header">
+        <div class="section-label">To-Do List</div>
+        <h2>Assignments</h2>
+      </div>
+
+      <div class="assign-input-group">
+        <input type="text" id="a-title" placeholder="Assignment title…">
+        <input type="text" id="a-subject" placeholder="Subject (e.g. Maths)">
+        <input type="date" id="a-due">
+        <select id="a-priority">
+          <option value="low">Low Priority</option>
+          <option value="medium" selected>Medium Priority</option>
+          <option value="high">High Priority</option>
+        </select>
+        <button class="add-assign-btn" id="add-assign">+ Add Assignment</button>
+      </div>
+
+      <div class="assign-list" id="assign-list">
+        <div class="empty-state">
+          <div class="es-icon">📚</div>
+          <p>No assignments yet.<br>Add one above!</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main / Stats + Upcoming -->
+    <main class="assign-main">
+      <div class="section-label">Overview</div>
+      <div class="assign-stats">
+        <div class="stat-card sc-blue">
+          <div class="sc-val" id="stat-total">0</div>
+          <div class="sc-label">Total</div>
+        </div>
+        <div class="stat-card sc-yellow">
+          <div class="sc-val" id="stat-pending">0</div>
+          <div class="sc-label">Pending</div>
+        </div>
+        <div class="stat-card sc-rose">
+          <div class="sc-val" id="stat-overdue">0</div>
+          <div class="sc-label">Overdue</div>
+        </div>
+      </div>
+
+      <div class="upcoming-section">
+        <h3>Upcoming Deadlines</h3>
+        <div class="upcoming-list" id="upcoming-list">
+          <div class="empty-state">
+            <div class="es-icon">🎉</div>
+            <p>All clear! No upcoming deadlines.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 2 — POMODORO + SPOTIFY
+═══════════════════════════════════════ -->
+<div class="page" id="page-pomodoro">
+  <div class="pomodoro-layout">
+
+    <!-- Timer Side -->
+    <section class="pomo-left">
+      <div class="pomo-header">
+        <h2>Pomodoro Timer</h2>
+        <p>Focus. Break. Repeat. Build your best study sessions.</p>
+      </div>
+
+      <div class="pomo-modes">
+        <button class="pomo-mode-btn active" data-mode="focus">Focus</button>
+        <button class="pomo-mode-btn" data-mode="short">Short Break</button>
+        <button class="pomo-mode-btn" data-mode="long">Long Break</button>
+      </div>
+
+      <div class="pomo-clock-wrap">
+        <div class="pomo-ring">
+          <svg viewBox="0 0 220 220" width="220" height="220">
+            <circle class="pomo-ring-bg" cx="110" cy="110" r="100"/>
+            <circle class="pomo-ring-fill" cx="110" cy="110" r="100"/>
+          </svg>
+          <div class="pomo-time">
+            <div class="pt-digits" id="pomo-digits">25:00</div>
+            <div class="pt-label" id="pomo-label">Focus</div>
+          </div>
+        </div>
+
+        <div class="pomo-controls">
+          <button class="pomo-btn pomo-btn-primary" id="pomo-start">Start</button>
+          <button class="pomo-btn pomo-btn-secondary" id="pomo-reset">Reset</button>
+        </div>
+      </div>
+
+      <div class="pomo-sessions">
+        <p>Sessions completed today</p>
+        <div class="session-dots" id="session-dots">
+          <div class="session-dot"></div>
+          <div class="session-dot"></div>
+          <div class="session-dot"></div>
+          <div class="session-dot"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spotify Side -->
+    <section class="pomo-right">
+      <h2>Study Music 🎵</h2>
+      <p>Paste a Spotify playlist or album link to embed it here.</p>
+
+      <div class="spotify-url-row">
+        <input type="text" id="spotify-url" placeholder="https://open.spotify.com/playlist/…">
+        <button class="spotify-load-btn" id="spotify-load">Load</button>
+      </div>
+
+      <div class="spotify-embed-wrap" id="spotify-embed">
+        <div class="spotify-placeholder">
+          <div class="sp-icon">🎧</div>
+          <p>Paste a Spotify playlist URL above<br>to start your study session soundtrack.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 3 — GPA + ATTENDANCE
+═══════════════════════════════════════ -->
+<div class="page" id="page-gpa">
+  <div class="calc-layout">
+
+    <!-- GPA Panel -->
+    <section class="calc-panel">
+      <div class="section-label">Academic</div>
+      <h2>GPA Calculator</h2>
+      <p>Enter your courses, credit hours, and grades to calculate your GPA.</p>
+
+      <div class="gpa-courses" id="gpa-courses">
+        <div class="empty-state" style="padding:1rem"><p>No courses yet. Add one!</p></div>
+      </div>
+      <div class="gpa-actions">
+        <button class="gpa-add-btn" id="gpa-add">+ Add Course</button>
+        <button class="gpa-calc-btn" id="gpa-calc">Calculate GPA →</button>
+      </div>
+
+      <div class="gpa-result">
+        <div class="gr-val" id="gpa-value">—</div>
+        <div class="gr-label">Cumulative GPA</div>
+        <div class="gr-grade" id="gpa-grade"></div>
+      </div>
+    </section>
+
+    <!-- Attendance Panel -->
+    <section class="calc-panel">
+      <div class="section-label">Attendance</div>
+      <h2>Attendance Calculator</h2>
+      <p>Check your overall attendance and track it per subject.</p>
+
+      <div class="att-inputs">
+        <div class="att-row">
+          <label>Total classes held</label>
+          <input type="number" id="att-total" placeholder="e.g. 60" min="1">
+        </div>
+        <div class="att-row">
+          <label>Classes attended</label>
+          <input type="number" id="att-attended" placeholder="e.g. 48" min="0">
+        </div>
+      </div>
+      <button class="att-calc-btn" id="att-calc">Calculate Attendance →</button>
+
+      <div class="att-result">
+        <div class="att-pct" id="att-pct">—</div>
+        <div class="att-gauge-wrap">
+          <div class="att-gauge-fill"></div>
+        </div>
+        <div class="att-status" id="att-status">Enter your data above.</div>
+      </div>
+
+      <!-- Per-subject tracker -->
+      <div style="margin-top: 1.5rem">
+        <div class="section-label" style="margin-bottom:0.75rem">Per Subject</div>
+        <div class="att-add-subject">
+          <input type="text" id="att-sub-name" placeholder="Subject name">
+          <input type="number" id="att-sub-pres" placeholder="Present" min="0">
+          <input type="number" id="att-sub-tot" placeholder="Total" min="1">
+          <button id="att-add-sub">+</button>
+        </div>
+        <div class="att-subject-list" id="att-subject-list"></div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 4 — MEMORY GAME
+═══════════════════════════════════════ -->
+<div class="page" id="page-game">
+  <div class="game-wrap">
+    <div class="game-top">
+      <div>
+        <div class="section-label">Break Time</div>
+        <h2>Memory Card Game 🧩</h2>
+      </div>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <div class="game-stats-row">
+          <div class="game-stat">Moves: <span id="game-moves">0</span></div>
+          <div class="game-stat">Time: <span id="game-timer">00:00</span></div>
+        </div>
+        <div class="game-diff-row">
+          <button class="diff-btn active" data-diff="easy">Easy</button>
+          <button class="diff-btn" data-diff="medium">Medium</button>
+          <button class="diff-btn" data-diff="hard">Hard</button>
+        </div>
+        <button class="new-game-btn" id="new-game">New Game</button>
+      </div>
+    </div>
+    <div class="card-grid easy" id="card-grid"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     BREAK POPUP
+═══════════════════════════════════════ -->
+<div id="break-popup">
+  <div class="bp-card">
+    <div class="bp-emoji">⏰</div>
+    <div class="bp-title">Time for a break!</div>
+    <p class="bp-sub">You've been studying for 15 minutes. Step away, stretch, and give your brain a moment to breathe.</p>
+    <div class="bp-actions">
+      <button class="bp-game-btn" id="bp-game">Play Memory Game 🧩</button>
+      <button class="bp-dismiss-btn" id="bp-dismiss">I'll keep studying</button>
+    </div>
+  </div>
+</div>
+
+<script src="index.mjs"></script>
+</body>
+</html>
